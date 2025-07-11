@@ -8,8 +8,8 @@ namespace OutSystems.RemoveDiacritics {
         /// <summary>
 		/// Removes accents from text
 		/// </summary>
-		/// <param name="ssText"></param>
-		/// <param name="ssCleanText"></param>
+		/// <param name="text"></param>
+		/// <param name="cleanText"></param>
 		public void RemoveStringDiacritics(string text, out string cleanText)
         {
             cleanText = "";
