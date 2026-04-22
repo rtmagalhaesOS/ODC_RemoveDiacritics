@@ -1,4 +1,4 @@
-﻿using OutSystems.ExternalLibraries.SDK;
+using OutSystems.ExternalLibraries.SDK;
 
 namespace OutSystems.RemoveDiacritics {
 
@@ -7,6 +7,8 @@ namespace OutSystems.RemoveDiacritics {
     /// </summary>
     [OSInterface(Description = "Provides functionality to remove diacritical marks from strings.", IconResourceName = "OutSystems.RemoveDiacritics.resources.circumflex-accent.png")]
     public interface IRemoveDiacritics {
-        void RemoveStringDiacritics(string text, out string cleanText);
+
+        [OSAction(Description = "Removes diacritical marks (accents) from the input text and returns the cleaned string.")]
+        void RemoveStringDiacritics(string? text, out string cleanText);
     }
 }
