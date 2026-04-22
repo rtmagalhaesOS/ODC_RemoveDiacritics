@@ -1,31 +1,33 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text;
 
 namespace OutSystems.RemoveDiacritics {
 
     public class RemoveDiacritics : IRemoveDiacritics {
-        
+
         /// <summary>
-		/// Removes accents from text
-		/// </summary>
-		/// <param name="text"></param>
-		/// <param name="cleanText"></param>
-		public void RemoveStringDiacritics(string text, out string cleanText)
+        /// Removes diacritical marks (accents) from the input text.
+        /// </summary>
+        /// <param name="text">The input string to process.</param>
+        /// <param name="cleanText">The resulting string with diacritics removed.</param>
+        public void RemoveStringDiacritics(string? text, out string cleanText)
         {
-            cleanText = "";
-
-            var cleanString = text.Normalize(NormalizationForm.FormD);
-            var stringBuilder = new StringBuilder();
-
-            foreach (var s in cleanString)
+            if (string.IsNullOrEmpty(text))
             {
-                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(s);
-                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
-                    stringBuilder.Append(s);
+                cleanText = text ?? string.Empty;
+                return;
+            }
+
+            var normalized = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder(normalized.Length);
+
+            foreach (var c in normalized)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
             }
 
             cleanText = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-
-        } // RemoveStringDiacritics
+        }
     }
 }
